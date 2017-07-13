@@ -1,0 +1,100 @@
+@echo off
+color 0a
+echo.
+echo. 
+echo.
+echo    Welcome to
+echo    Weapons Of Shadow
+echo.
+echo.
+echo.
+echo If you have a saved game, please type in the Password for the level. If you do not, please type "new".
+set /p save= Password: 
+if %save%== new goto newgame
+:newgame
+cls
+set health= "100"
+set mana= "100"
+set name= "Unknown"
+echo Health: %health% --- Mana: %mana% --- Name: %name%
+echo.
+echo.
+echo (You wake up in an unfamiliar bed. Your neck hurts, but not to much to stop you from sitting up and looking around.)
+echo (The room is dusty and broken down, like a shack that you would find in the woods. You see a note on the edge of the bed.)
+Echo Do you pick the note up?
+set /p choice= Read the note? (For yes/no questions, only type the first letter of your choice, e.i. Y/N):
+if %choice%== Y goto Heronote
+if %choice%== N goto stand
+:Heronote
+cls
+echo (You pickup the note.)
+echo To the hero of Burdendale:
+echo You must be ever so confused. But you must forgive me, along with us all at the end of our days. You are needed in these lands, as
+echo it states in the prophecy. But we must make sure it is you, hero. It states in the prophecy that only the hero can defeat the foes in the 
+echo plains of these lands. Go south, to the plains. If you can get across, we will see that you are the hero. After you have gotten across the 
+echo plains, look around the sky, there will be a steady stream of smoke. There, you can find us. 
+echo 									Be careful, hero.
+pause
+:stand
+cls
+echo (You stand and a name appears in your mind.)
+set /p name= What is your name?  :
+echo Health: %health% --- Mana: %mana% --- Name: %name%
+echo (The name stays in your mind for a second before your eyes see the weapons rack across the room.)
+echo (You walk to the weapons rack and see three weapons.)
+:weaponsrack
+echo Weapons Rack:
+echo 1) Short Sword [Dmg= 25 - One handed]
+echo 2) Damaged War Axe [Dmg= 20 - One handed]
+echo 3) Cracked War Hammer [Dmg= 35 - Two handed]
+set /p weapon= Which do you take? (When getting items, only type the number) : 
+if %weapon%== 1 goto weapon1
+if %weapon%== 2 goto weapon2
+if %weapon%== 3 goto weapon3
+:weapon1
+set weapon= "Short Sword"
+set dmg= "25"
+goto 1
+:weapon2
+set weapon= "Damaged War Axe"
+set dmg= "20"
+goto 1
+:weapon3
+set weapon= "Cracked War Hammer"
+set dmg= "35"
+goto 1
+cls
+:1
+echo Health: %health% --- Mana: %mana% --- Name: %name% --- Weapon: %weapon% --- Dmg: %dmg%
+echo (You picked up the %weapon%)
+pause
+cls
+echo (You exit the building through the wooden door, leading to a large plain. You see lots of movement throughout the grass, but
+echo you cannot see any of the things making the grass move.)
+echo (You walk forward and a short creature jumps out of the tall grass, landing infront of you. It seems angry. It trys to attack you.)
+Set enemy= "Grass Goblin"
+set enemyhealth= "50"
+set enemyweapon= "stick"
+set enemydmg= "0"
+set enemydie= "0"
+pause
+:goto fight1
+:fight
+
+if %enemyhealth% LEQ 0 goto win
+:fight1
+cls
+echo Health: %health% --- Mana: %mana% --- Name: %name% --- Weapon: %weapon% --- Dmg: %dmg%
+echo Health: "%enemyhealth%" --- Name: %enemy% --- Weapon %enemyweapon% --- Dmg: %enemydmg%
+echo Stab [%dmg% dmg]
+set /p action= What do you do? (Type the full action name) : 
+if %action%== Stab goto stab
+:stab
+set /a "enemyhealth= "%enemyhealth%-%dmg%""
+goto fight
+:win
+echo You have defeated %enemy%!
+
+
+
+pause
